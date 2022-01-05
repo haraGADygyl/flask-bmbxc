@@ -1,16 +1,14 @@
-# This is a sample Python script.
+from config import create_my_app
+from db import db
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+app = create_my_app()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+@app.before_first_request
+def init_request():
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    db.create_all()
+
+
+if __name__ == "__main__":
+    app.run()
